@@ -36,7 +36,7 @@
    <!-- Bootstrap Bundle Js -->
    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE -->
-    <script src="{{ asset('js/adminlte.js') }}"></script>
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
     <!-- OPTIONAL SCRIPTS -->
     <script src="{{ asset('/Chart.min.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->

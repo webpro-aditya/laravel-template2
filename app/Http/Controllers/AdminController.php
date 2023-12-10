@@ -11,8 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 
 
 class AdminController extends Controller
@@ -58,6 +57,51 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->intended('login')->with(['success' => __('You\'ve been logged out.')]);
+    }
+
+    public function createUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => [
+                'required',
+                'email:rfc,filter',
+                Rule::unique('App\Models\User')
+            ],
+            'password' => 'required'
+        ], [
+            'name.required' => 'Name is mandatory.',
+            'email.required' => 'Email is mandatory.',
+            'password.required' => 'Password is mandatory.'
+        ]);
+
+        try{
+            $insert = [];
+            $input = $request->all();
+
+            $password = $input['password'];
+            $confirm_password = $input['confirm_password'];
+
+            if($password == $confirm_password) {
+                $insert['name'] = trim($input['name']);
+                $insert['email'] = trim($input['email']);
+                $insert['password'] = Hash::make($password);
+
+                $user_create = User::create($insert);
+
+                if($user_create) {
+                    return redirect()->route('login')->with('success', 'You have registered. Login now.');
+                } else {
+                    return redirect()->back()->with('error', 'Error registering new User.');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Passwords do not match.');
+            }
+
+            
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
 

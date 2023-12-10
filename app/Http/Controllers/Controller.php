@@ -42,30 +42,4 @@ class Controller extends BaseController
 
         return $stripe_keys_arr;
     }
-
-    /**
-     * Create Stripe Customer
-     * 
-     * @return Array $customer
-     */
-    public function createStripeCustomer($email)
-    {
-        #Stipe Keys Array
-        $stripe_keys_arr = $this->getStripeKeys();
-        #Extracting Stripe Key
-        $stripe_secret = $stripe_keys_arr['stripe_secret'];
-
-        $stripe = new \Stripe\StripeClient($stripe_secret);
-        $customer = $stripe->customers->create([
-            'email' => $email
-        ]);
-        return $customer;
-    }
-
-
-    public function getFieldValueUser($field_arr = [], $user_id = '')
-    {
-        $user_data = User::select($field_arr)->where('userId', $user_id)->first();
-        return $user_data;
-    }
 }

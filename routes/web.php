@@ -35,9 +35,11 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/home', [HomeController::class, 'home'])->name('home.home');
-    Route::get('/login', [HomeController::class, 'login'])->name('home.login');
     Route::get('/admin', [HomeController::class, 'login'])->name('login');
+    Route::get('/login', [HomeController::class, 'login'])->name('home.login');
     Route::post('/login', [AdminController::class, 'login'])->name('admin.login');
+    Route::get('/register', [HomeController::class, 'register'])->name('register');
+    Route::post('/register', [AdminController::class, 'createUser'])->name('createUser');
 
 
 

@@ -2,11 +2,9 @@
 
 @section('auth')
 
-    @include('layouts.navbars.auth.nav')    
-    <div id="layoutSidenav">        
-        @include('layouts.navbars.auth.sidebar')
+    @include('layouts.navbars.auth.nav')          
+    @include('layouts.navbars.auth.sidebar')
         @yield('content')
-    </div>
     @include('layouts.footers.auth.footer')
 
 @endsection

@@ -1,22 +1,6 @@
 <?php
 
 
-
-if (!function_exists('getTerms')) {
-   function getTerms()
-   {
-        $terms = [
-            'day' => 'Daily',
-            'month' => 'Monthly',
-            'week' => 'Weekly',
-            'year' => 'Yearly'
-        ];
-
-        return $terms;
-   }
-}
-
-
 if (!function_exists('getDateFormatted')) {
     /**
      * Get the database date format from config.
